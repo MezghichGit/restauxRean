@@ -14,4 +14,24 @@ export default StyleSheet.create({
         fontSize: 20,
         textAlign: 'center'
     },
+    logo: {
+        height: 200,
+        width: 200,
+        margin: 'auto'
+      },
+      containerContact:{
+            padding: 20,
+            marginHorizontal:20,
+            marginVertical:20
+          
+      },
+      titreText: {
+        fontSize: 20
+    },
+    input:{
+    height: 60,
+    margin: 1,
+    borderWidth: 0.2,
+    padding: 1,
+    }
 })

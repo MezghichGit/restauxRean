@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from '../screens/HomeScreen';
-import ContactScreen from '../screens/ContactScreen';
 
+import StackContact from './StackContact';
 import StackRestaux from './StackRestaux';
 import StackDemandes from './StackDemandes';
 const Tab = createBottomTabNavigator();  //Création du Tab Navigator
@@ -32,7 +32,7 @@ const MyTabs = () => {
             <Tab.Screen name="Welcome" component={HomeScreen} />
             <Tab.Screen name="Restaux" component={StackRestaux} />
             <Tab.Screen name="Demandes" component={StackDemandes} />
-            <Tab.Screen name="Contact" component={ContactScreen} />
+            <Tab.Screen name="Contact" component={StackContact} />
         </Tab.Navigator>
     );
 }
