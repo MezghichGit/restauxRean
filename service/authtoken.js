@@ -29,7 +29,13 @@ function authentificate(newUser) {
 }
 
 function logout() {
-    AsyncStorage.removeItem('token')
+    AsyncStorage.removeItem('token');
+    AsyncStorage.removeItem('nom')
+    AsyncStorage.removeItem('email')
+    AsyncStorage.removeItem('adresse')
+    AsyncStorage.removeItem('telephone')
+    AsyncStorage.removeItem('id')
+    AsyncStorage.removeItem('me')
     delete axios.defaults.headers['Authorization'];
 }
 const getToken = async () => {

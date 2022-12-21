@@ -4,6 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import MyTabs from "./MyTabs";
 import MonProfilScreen from "../screens/MonProfilScreen";
 import DeconnexionScreen from "../screens/DeconnexionScreen";
+import authtoken from "../service/authtoken";
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
@@ -25,6 +26,7 @@ const DrawerNavigator = () => {
           state: (e) => {
              if (e.data.state.index === 2) {
                 // 2 is index of logout item in drawer
+                authtoken.logout();
                 navigation.replace("Signin")
              }
           }

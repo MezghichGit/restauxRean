@@ -1,46 +1,55 @@
-/*import {Text, View,Image} from 'react-native';
-import styles from '../styles';
- const MonProfilScreen = () =>{
-    return (
-        <View style={[styles.container,styles.containerContact]}>
-            <Text style={styles.titreText}>Mes infos de contact</Text>
-            <Image
-                style={styles.logo}
-                source={{
-                    uri: 'https://cours-informatique-gratuit.fr/wp-content/uploads/2017/10/avatar.png',
-                }} />
-            <Text>Mohamed Amine MEZGHICH</Text>
-            <Text>amine.mezghich@gmail.com</Text>
-            <Text>Téléphone : 33 (0)1 43 34 90 94</Text>
-            <Text>Adresse : Paris LEVALLOIS-PERRET</Text>
-            
-        </View>
-    );
-}
 
-export default MonProfilScreen;*/
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import { View,StyleSheet,Text, ScrollView,TouchableOpacity ,Image,useWindowDimensions} from 'react-native';
 import CustomInput from '../composants/CustomInput';
 import CustomButton from '../composants/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import Logo from '../assets/logo.png'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
 const MonProfilScreen = () => {
     const [nom, setNom] = useState('') ;
-    const [prenom, setPrenom] = useState('') ;
     const [email, setEmail] = useState('') ;
-    const [password, setPassword] = useState('') ;
     const {height} = useWindowDimensions();
+    const [telephone, setTelephone] = useState("");
+    const [adresse, setAdresse] = useState("");
+    const [id, setId] = useState(0);
+
 const navigation = useNavigation ();
 
-/*const OnSignInPressed =() => {
-    navigation.navigate('Signin');
 
-};*/
+useEffect(() => {
+  setTimeout(() => getUserProfil(), 1000);
+}, []);
 
-const OnUpdateProfilPressed = () => {
-    //navigation.navigate('Confirmemail');
-    console.log("Profil updated...");
+const getUserProfil = async () => {
+  //wait authtoken.getToken();
+  const nom = await AsyncStorage.getItem("nom");
+  const email = await AsyncStorage.getItem("email");
+  const telephone = await AsyncStorage.getItem("telephone");
+  const adresse = await AsyncStorage.getItem("adresse");
+  const id = await AsyncStorage.getItem("id");
+  setNom(nom);
+  setTelephone(telephone);
+  setAdresse(adresse);
+  setEmail(email);
+  setId(id);
+};
+
+  const OnUpdateProfilPressed = async () => {
+    const data = {
+      telephone: telephone,
+      adresse: adresse,
+    };
+    try {
+      await axios.put(
+        `https://restaux.smart-it-partner.com/public/index.php/api/users/${id}`,
+        data
+      );
+     navigation.navigate("PLB");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -55,30 +64,29 @@ const OnUpdateProfilPressed = () => {
     <Text style={styles.title}>Mes informations de contact</Text>
 
     <CustomInput
-    placeholder="Mohamed Amine MEZGHICH"
+    placeholder=""
     value={nom}
     setValue={setNom}
      />
       
 
     <CustomInput
-    placeholder="amine.mezghich@gmail.com"
+    placeholder=""
     value={email}
     setValue={setEmail}
      />
 
     <CustomInput
-    placeholder="Téléphone : 33 (0)1 43 34 90 94"
-    value={password}
-    setValue={setPassword}
-    secureTextEntry={true}
+    placeholder=""
+    value={telephone}
+    setValue={setTelephone}
+    
       />
-
-<CustomInput
-    placeholder="Adresse : Paris LEVALLOIS-PERRET"
-    value={password}
-    setValue={setPassword}
-    secureTextEntry={true}
+   <CustomInput
+    placeholder=""
+    value={adresse}
+    setValue={setAdresse}
+  
       />
   
 
