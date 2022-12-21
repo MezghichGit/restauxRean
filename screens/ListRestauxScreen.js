@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Image, TextInput, PermissionsAndroid, StyleSheet, Text, View, Button, SafeAreaView, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
-
+import authtoken from "../service/authtoken";
+import axios from "axios";
 import styles from '../styles';
+
 
 
 /***** Composant Flat ListItem */
@@ -27,15 +29,25 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
         () => {
             setFetchedState('Loading');
             setTimeout(() => getData(), 1000);
+            authtoken.getToken();
         }, []
     );
     const getData = async () => {
+        /*
         //const response = await fetch('https://jsonplaceholder.typicode.com/users')
         const response = await fetch('https://restaux.smart-it-partner.com/public/index.php/api/restaurants');
+        //const response = await fetch('http://127.0.0.1:8000/api/restaurants');
         const data = await response.json()
         setRestaux(data['hydra:member'])
         setFetchedState(null);
-        console.log(data)
+        console.log(data)*/
+        const response = await axios.get("https://restaux.smart-it-partner.com/public/index.php/api/restaurants")
+        .then(response=>response.data["hydra:member"])
+        
+        setRestaux(response)
+        setFetchedState(null);
+        console.log(response)
+
     }
 
         /////

@@ -3,18 +3,32 @@ import { View, Image, StyleSheet,useWindowDimensions , ScrollView,TouchableOpaci
 import CustomInput from '../composants/CustomInput';
 import CustomButton from '../composants/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Logo from '../assets/logo.png'
+import authtoken from "../service/authtoken";
 const SignInScreen = () => {
     const [username, setUsername] = useState('') ;
     const [password, setPassword] = useState('') ;
     const {height} = useWindowDimensions();
     const navigation = useNavigation ();
 
-    const OnSignInPressed = () => {
-    // validate user
-    navigation.navigate('Dashboard');
-  };
+    let newUser = {
+      username:username,
+      password:password,
+  }
+      const OnSignInPressed = async() => {
+        console.log(newUser);
+        try{
+  
+            await authtoken.authentificate(newUser);
+            navigation.navigate('Dashboard');
+        }
+        catch(error){
+            console.log("invalid credentials");
+        }
+  
+      
+    };
+  
+  
 
     const OnForgotPasswordPressed =() => {
 

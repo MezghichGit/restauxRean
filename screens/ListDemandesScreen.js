@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Image, TextInput, PermissionsAndroid, StyleSheet, Text, View, Button, SafeAreaView, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styles';
+import authtoken from "../service/authtoken";
+import axios from "axios";
 
 /***** Composant Flat ListItem */
 const Item = ({ item, onPress, backgroundColor, textColor }) => (
@@ -26,6 +28,7 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
 
     useEffect(
         () => {
+            authtoken.getToken();
             setFetchedState('Loading');
             setTimeout(() => getData(), 1000);
         }, []
@@ -45,10 +48,20 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
 
     const getData = async () => {
         //const response = await fetch('https://jsonplaceholder.typicode.com/users')
+        
+        /*
         const response = await fetch('https://restaux.smart-it-partner.com/public/index.php/api/demandes')
         const data = await response.json()
         setDemandes(data['hydra:member'])
+        setFetchedState(null);*/
+
+        const response = await axios.get("https://restaux.smart-it-partner.com/public/index.php/api/demandes")
+        .then(response=>response.data["hydra:member"])
+        
+        setDemandes(response)
         setFetchedState(null);
+        console.log(response)
+
         //console.log(data);
         //console.log("Data du Storage : ");
         //_retrieveData();
