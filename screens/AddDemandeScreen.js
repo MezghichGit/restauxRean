@@ -1,8 +1,9 @@
 import {Text, TextInput, Button,SafeAreaView} from 'react-native';
 import React, { useState} from "react";
 import styles from '../styles';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
  const AddDemandeScreen = ({ navigation }) =>{
+
 
     const [nom, setNom] = useState("");
     const [email, setEmail] = useState("");
@@ -10,6 +11,29 @@ import styles from '../styles';
     const [adresse, setAdresse] = useState("");
 
     //const dateDemande = Date.now();
+
+
+    const _retrieveData = async () => {
+        try {
+           let jsonMe = await AsyncStorage.getItem('me');
+            //console.log(jsonMe);
+          
+           //jsonMe != null ? JSON.parse(jsonMe) : null;
+           //console.log("22");
+           // const value = await AsyncStorage.getItem('mySecretData');
+          if (jsonMe !== null) {
+           // console.log("25");
+            jsonMe = JSON.parse(jsonMe)
+            console.log(jsonMe);
+            setNom(jsonMe.nom);
+           setEmail(jsonMe.email);
+          }
+        } catch (error) {
+          // Error retrieving data
+        }
+      };
+      console.log("Data du Storage : ");
+      _retrieveData();
 
     var currentdate = new Date();
 
