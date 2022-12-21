@@ -1,31 +1,10 @@
-/*import {Text, View,Image} from 'react-native';
-import styles from '../styles';
- const MonProfilScreen = () =>{
-    return (
-        <View style={[styles.container,styles.containerContact]}>
-            <Text style={styles.titreText}>Mes infos de contact</Text>
-            <Image
-                style={styles.logo}
-                source={{
-                    uri: 'https://cours-informatique-gratuit.fr/wp-content/uploads/2017/10/avatar.png',
-                }} />
-            <Text>Mohamed Amine MEZGHICH</Text>
-            <Text>amine.mezghich@gmail.com</Text>
-            <Text>Téléphone : 33 (0)1 43 34 90 94</Text>
-            <Text>Adresse : Paris LEVALLOIS-PERRET</Text>
-            
-        </View>
-    );
-}
-
-export default MonProfilScreen;*/
 import React, {useState} from 'react';
 import { View,StyleSheet,Text, ScrollView,TouchableOpacity ,Image,useWindowDimensions} from 'react-native';
 import CustomInput from '../composants/CustomInput';
 import CustomButton from '../composants/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import Logo from '../assets/logo.png'
-const MonProfilScreen = () => {
+const SignUpScreen = () => {
     const [nom, setNom] = useState('') ;
     const [prenom, setPrenom] = useState('') ;
     const [email, setEmail] = useState('') ;
@@ -33,49 +12,44 @@ const MonProfilScreen = () => {
     const {height} = useWindowDimensions();
 const navigation = useNavigation ();
 
-/*const OnSignInPressed =() => {
+const OnSignInPressed =() => {
     navigation.navigate('Signin');
 
-};*/
+};
 
-const OnUpdateProfilPressed = () => {
+const OnRegisterPressed = () => {
     //navigation.navigate('Confirmemail');
-    console.log("Profil updated...");
+    console.log("Register pressed");
   };
 
   return (
 
   <View style={styles.root}>
   <Image 
-     source={{
-        uri: 'https://cours-informatique-gratuit.fr/wp-content/uploads/2017/10/avatar.png',
-    }}
+     source={{'uri':'https://www.plb-consulting.com/wp-content/uploads/2015/05/logo.png'}}
      style={[styles.logo, {height:height*0.3}]} 
      resizeMode="contain" />
-    <Text style={styles.title}>Mes informations de contact</Text>
+    <Text style={styles.title}>Créer un compte</Text>
 
     <CustomInput
-    placeholder="Mohamed Amine MEZGHICH"
+    placeholder="Nom"
     value={nom}
     setValue={setNom}
      />
-      
+       <CustomInput
+    placeholder="Prénom"
+    value={prenom}
+    setValue={prenom}
+     />
 
     <CustomInput
-    placeholder="amine.mezghich@gmail.com"
+    placeholder="Adresse Email"
     value={email}
     setValue={setEmail}
      />
 
     <CustomInput
-    placeholder="Téléphone : 33 (0)1 43 34 90 94"
-    value={password}
-    setValue={setPassword}
-    secureTextEntry={true}
-      />
-
-<CustomInput
-    placeholder="Adresse : Paris LEVALLOIS-PERRET"
+    placeholder="Mot de passe"
     value={password}
     setValue={setPassword}
     secureTextEntry={true}
@@ -83,16 +57,29 @@ const OnUpdateProfilPressed = () => {
   
 
     <CustomButton 
-    text="Mise à jour"
-    onPress={OnUpdateProfilPressed}
+    text="S'inscrire"
+    onPress={OnRegisterPressed}
     type="PRIMARY"
     />
 
 
+<TouchableOpacity >
+<Text style={styles.NormalText}  >Déjà membre? <Text style={styles.SignupText}  onPress={OnSignInPressed}>Connectez-vous</Text></Text>
+        </TouchableOpacity>
    <TouchableOpacity>
           <Text style={styles.FooterText}>© 2022 Copyright - PLB</Text>
         </TouchableOpacity>
+  {/* <CustomButton 
+    text="Sign In with Facebook"
+    onPress={OnSignInFacebook}
+    type="PRIMARY"
+    />
 
+  <CustomButton 
+    text="Sign In with google"
+    onPress={OnSignInGoogle}
+    type="PRIMARY"
+    /> */}
 
   </View>
 
@@ -145,5 +132,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default MonProfilScreen ;
-
+export default SignUpScreen ;

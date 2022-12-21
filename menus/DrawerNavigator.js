@@ -19,7 +19,20 @@ const DrawerNavigator = () => {
     }}>
       <Drawer.Screen name="PLB" component={MyTabs} />
       <Drawer.Screen name="Mon Profil" component={MonProfilScreen } />
-      <Drawer.Screen name="Déconnexion" component={DeconnexionScreen} />
+      <Drawer.Screen name="Déconnexion"
+
+      listeners={({ navigation }) => ({ 
+          state: (e) => {
+             if (e.data.state.index === 2) {
+                // 2 is index of logout item in drawer
+                navigation.replace("Signin")
+             }
+          }
+      })}
+      
+      component={DeconnexionScreen} />
+
+      {/*<Drawer.Screen name="Déconnexion" component={DeconnexionScreen} />*/}
     </Drawer.Navigator>
   );
 }
